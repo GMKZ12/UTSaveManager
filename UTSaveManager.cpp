@@ -31,10 +31,13 @@ int main()
 	
 	if (KillUTName == ""||GameDir == ""||SaveDir == "") {
 		cout<< "Please write config.config!!" << endl;
+		cout<< "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
 		system("pause");
 		return 0;
 	}
-	
+	cout << "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
+	cout<< "Input \"start\"  to start,\"stop\"  to stop" << endl;
+	cout << ">";
 		cin >> Input;
 		if (Input == "start") {
 			cout << "starting Undertale" << endl;
@@ -42,8 +45,10 @@ int main()
 			getline(ifs, GameDir);
 			cout << GameDir << endl;
 			cout<< KillUTName <<endl;
+			cout<< SaveDir <<endl;
 			ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
 			while (true) {
+				cout << ">";
 				cin >> Input;
 				if (Input == "make") {
 					cout << "Please input backup name:";
@@ -59,6 +64,7 @@ int main()
 					cout << "Please input backup name:";
 					cin >> BackUpName;
 					cout<< "Sure? yes/no" << endl;
+					cout << ">";
 					cin >> Input;
 					if (Input=="yes") {
 						cout<< "Closing Undertale in 3s" << endl;
@@ -80,9 +86,22 @@ int main()
 				if (Input == "stop") {
 					Command = "taskkill /IM " + KillUTName;
 					system(Command.c_str());
+					system("pause");
 					break;
+				}else {
+					cout<< "Unknown command,you can input stop,make,back "<< endl;
 				}
 			}
+		}if (Input == "stop") {
+			cout<< "Stopping" << endl;
+			Command = "taskkill /IM " + KillUTName;
+			system(Command.c_str());
+			system("pause");
+			return 0;
+		}
+		else {
+			cout<< "Unknown command,you can input start,stop" << endl;
+			system("pause");
 		}
 		
 	

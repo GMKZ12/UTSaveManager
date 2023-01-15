@@ -43,9 +43,9 @@ int main()
 			cout << "starting Undertale" << endl;
 			getline(ifs, KillUTName);
 			getline(ifs, GameDir);
-			cout << GameDir << endl;
-			cout<< KillUTName <<endl;
-			cout<< SaveDir <<endl;
+			cout <<  "GamePath:" << GameDir << endl;
+			cout<< "GameName:" << KillUTName << endl;
+			cout<< "SavePath:" << SaveDir << endl;
 			ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
 			while (true) {
 				cout << ">";
@@ -82,14 +82,20 @@ int main()
 					}
 					
 				}
-
+				if (Input=="restart") {
+					Command = "taskkill /F /IM " + KillUTName;
+					system(Command.c_str());
+					cout << "Restarting in 3s" << endl;
+					Delay(3000);
+					ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
+				}
 				if (Input == "stop") {
 					Command = "taskkill /IM " + KillUTName;
 					system(Command.c_str());
 					system("pause");
 					break;
 				}else {
-					cout<< "Unknown command,you can input stop,make,back "<< endl;
+					cout<< "Unknown command,you can input stop,make,back,restart "<< endl;
 				}
 			}
 		}if (Input == "stop") {

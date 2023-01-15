@@ -105,10 +105,7 @@ int main()
 			system("pause");
 			return 0;
 		}
-		else {
-			cout<< "Unknown command,you can input start,stop" << endl;
-			system("pause");
-		}
+		
 		
 	
 	ifs.close();

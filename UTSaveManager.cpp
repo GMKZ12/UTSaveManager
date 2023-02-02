@@ -37,6 +37,7 @@ int main()
 	}
 	cout << "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
 	cout<< "Input \"start\"  to start,\"stop\"  to stop" << endl;
+	
 	cout << ">";
 		cin >> Input;
 		if (Input == "start") {
@@ -47,6 +48,7 @@ int main()
 			cout<< "GameName:" << KillUTName << endl;
 			cout<< "SavePath:" << SaveDir << endl;
 			ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
+			Input = "NOTHING";
 			while (true) {
 				cout << ">";
 				cin >> Input;
@@ -57,6 +59,8 @@ int main()
 					system(Command.c_str());
 					Command = "xcopy " + SaveDir + "\\*" + " backups\\"+BackUpName;
 					system(Command.c_str());
+					//CopyFile((SaveDir+"\\*").c_str(), ("backups\\"+BackUpName).c_str(),true);
+					Input = "NOTHING";
 				}
 				if (Input == "back") {
 					Command = "dir backups\\";
@@ -76,9 +80,11 @@ int main()
 						cout<< "Restarting in 3s" << endl;
 						Delay(3000);
 						ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
+						Input = "NOTHING";
 					}
 					else{
 						cout<< "Backup cancel" << endl;
+						Input = "NOTHING";
 					}
 					
 				}
@@ -88,12 +94,16 @@ int main()
 					cout << "Restarting in 3s" << endl;
 					Delay(3000);
 					ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
+					Input = "NOTHING";
 				}
 				if (Input == "stop") {
 					Command = "taskkill /IM " + KillUTName;
 					system(Command.c_str());
 					system("pause");
+					Input = "NOTHING";
 					break;
+				}if (Input == "NOTHING") {
+					
 				}else {
 					cout<< "Unknown command,you can input stop,make,back,restart "<< endl;
 				}

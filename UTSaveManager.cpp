@@ -4,30 +4,30 @@
 #include "UTSaveManager.h"
 
 using namespace std;
+#include "jsonxx/json.hpp"
+using namespace jsonxx;
 string Input;
 string GameDir;
 string KillUTName;
 string Command;
 string SaveDir;
 string BackUpName;
-
-void   Delay(int   time)//time*1000为秒数 
-{
-	clock_t   now = clock();
-
-	while (clock() - now < time);
-}
+json j;
 
 int main()
 {
 	ofstream ofs;
 	ifstream ifs;
+
+	ifstream ifsJson("config.json");
+
 	ifs.open("config.config");
 	getline(ifs, KillUTName);
 	getline(ifs, GameDir);
 	getline(ifs, SaveDir);
 	//KillCommand.append("taskkill /F /IM ");
 	//KillCommand.append(KillName);
+	ifsJson >> j;
 	
 	if (KillUTName == ""||GameDir == ""||SaveDir == "") {
 		cout<< "Please write config.config!!" << endl;
@@ -37,6 +37,10 @@ int main()
 	}
 	cout << "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
 	cout<< "Input \"start\"  to start,\"stop\"  to stop" << endl;
+	
+	auto b = j["happy"].as_bool();
+	cout<< b <<endl;
+	
 	
 	cout << ">";
 		cin >> Input;
@@ -114,10 +118,13 @@ int main()
 			system(Command.c_str());
 			system("pause");
 			return 0;
+		}if (Input == "help")
+		{
+			CommandHelp();
 		}
 		
-		
-	
-	ifs.close();
+		ofs.close();
+		ifsJson.close();
+		ifs.close();
 	return 0;
 }

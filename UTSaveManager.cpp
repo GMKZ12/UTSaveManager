@@ -13,41 +13,70 @@ string Command;
 string SaveDir;
 string BackUpName;
 json j;
-
+bool FirstOpen;
 int main()
 {
-	ofstream ofs;
+	
 	ifstream ifs;
-
 	ifstream ifsJson("config.json");
-
-	ifs.open("config.config");
-	getline(ifs, KillUTName);
-	getline(ifs, GameDir);
-	getline(ifs, SaveDir);
-	//KillCommand.append("taskkill /F /IM ");
-	//KillCommand.append(KillName);
 	ifsJson >> j;
 	
+	//ifs.open("config.config");
+	//getline(ifs, KillUTName);
+	//getline(ifs, GameDir);
+	//getline(ifs, SaveDir);
+	//KillCommand.append("taskkill /F /IM ");
+	//KillCommand.append(KillName);
+	
+	/*
 	if (KillUTName == ""||GameDir == ""||SaveDir == "") {
 		cout<< "Please write config.config!!" << endl;
 		cout<< "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
 		system("pause");
 		return 0;
 	}
+	*/
+	GameDir = j["GameDir"].as_string();
+	SaveDir = j["SaveDir"].as_string();
+	KillUTName = j["UTExe"].as_string();
+	FirstOpen = j["FirstOpen"].as_bool();
+
+	if (FirstOpen == true) {
+		ofstream ofsJson("config.json");
+		cout<< "We detect you first open the program.Please input your UNDERTALE information:)" << endl;
+		cout << "GameDir:";
+		cin >> Input;
+		j["GameDir"] = Input;
+		cout << "SaveDir:";
+		cin >> Input;
+		j["SaveDir"] = Input;
+		cout << "UTExeGameName:";
+		cin >> Input;
+		j["UTExe"] = Input;
+		Input = "NOTHING";
+		j["FirstOpen"] = false;
+		ofsJson << j << std::endl;
+		ofsJson.close();
+		cout << "Successfully edit config file \"config.json\" " << endl;
+	}
+
+	GameDir = j["GameDir"].as_string();
+	SaveDir = j["SaveDir"].as_string();
+	KillUTName = j["UTExe"].as_string();
+	FirstOpen = j["FirstOpen"].as_bool();
+
 	cout << "For more information:https://github.com/GMKZ12/UTSaveManager/" << endl;
 	cout<< "Input \"start\"  to start,\"stop\"  to stop" << endl;
 	
-	auto b = j["happy"].as_bool();
-	cout<< b <<endl;
+
 	
 	
 	cout << ">";
 		cin >> Input;
 		if (Input == "start") {
 			cout << "starting Undertale" << endl;
-			getline(ifs, KillUTName);
-			getline(ifs, GameDir);
+			//getline(ifs, KillUTName);
+			//getline(ifs, GameDir);
 			cout <<  "GamePath:" << GameDir << endl;
 			cout<< "GameName:" << KillUTName << endl;
 			cout<< "SavePath:" << SaveDir << endl;
@@ -123,8 +152,8 @@ int main()
 			CommandHelp();
 		}
 		
-		ofs.close();
+		
 		ifsJson.close();
-		ifs.close();
+		//ifs.close();
 	return 0;
 }

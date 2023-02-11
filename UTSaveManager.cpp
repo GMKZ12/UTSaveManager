@@ -42,7 +42,6 @@ int main()
 	FirstOpen = j["FirstOpen"].as_bool();
 
 	if (FirstOpen == true) {
-		ofstream ofsJson("config.json");
 		cout<< "We detect you first open the program.Please input your UNDERTALE information:)" << endl;
 		cout << "GameDir:";
 		cin >> Input;
@@ -55,6 +54,7 @@ int main()
 		j["UTExe"] = Input;
 		Input = "NOTHING";
 		j["FirstOpen"] = false;
+		ofstream ofsJson("config.json");
 		ofsJson << j << std::endl;
 		ofsJson.close();
 		cout << "Successfully edit config file \"config.json\" " << endl;

@@ -6,6 +6,7 @@
 using namespace std;
 #include "jsonxx/json.hpp"
 using namespace jsonxx;
+string defaultJson = R"({ "UTExe": "", "GameDir": "", "SaveDir": "","FirstOpen": true })";
 string Input;
 string GameDir;
 string KillUTName;
@@ -16,7 +17,15 @@ json j;
 bool FirstOpen;
 int main()
 {
-	
+	bool json = isFileExists("config.json");
+	if (json == true) {
+		cout<< "config.json detected" << endl;
+	}else {
+		ofstream ofsJson("config.json");
+		ofsJson << defaultJson << endl;
+		ofsJson.close();
+		cout<< "Suessfully created config.json" << endl;
+	}
 	ifstream ifs;
 	ifstream ifsJson("config.json");
 	ifsJson >> j;
@@ -42,7 +51,7 @@ int main()
 	FirstOpen = j["FirstOpen"].as_bool();
 
 	if (FirstOpen == true) {
-		cout<< "We detect you first open the program.Please input your UNDERTALE information:)" << endl;
+		cout<< "We detected that you first open the program.Please input your UNDERTALE information:)" << endl;
 		cout << "GameDir:";
 		cin >> Input;
 		j["GameDir"] = Input;
@@ -128,6 +137,22 @@ int main()
 					Delay(3000);
 					ShellExecute(NULL, "open", GameDir.c_str(), NULL, NULL, SW_SHOW);
 					Input = "NOTHING";
+				}if (Input == "set") {
+					cout << "GameDir:";
+					cin >> Input;
+					j["GameDir"] = Input;
+					cout << "SaveDir:";
+					cin >> Input;
+					j["SaveDir"] = Input;
+					cout << "UTExeGameName:";
+					cin >> Input;
+					j["UTExe"] = Input;
+					Input = "NOTHING";
+					j["FirstOpen"] = false;
+					ofstream ofsJson("config.json");
+					ofsJson << j << std::endl;
+					ofsJson.close();
+					cout << "Successfully edit config file \"config.json\" " << endl;
 				}
 				if (Input == "stop") {
 					Command = "taskkill /IM " + KillUTName;

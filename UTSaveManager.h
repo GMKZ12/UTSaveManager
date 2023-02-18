@@ -10,9 +10,13 @@
 #include<tlhelp32.h>
 #include<comdef.h>
 #include <ctime> 
-
+#include<thread>
 using namespace std;
 
+bool isFileExists(string file_name) {
+	ifstream file(file_name);
+	return file.good();
+}
 
 void   Delay(int   time)//time*1000为秒数 
 {

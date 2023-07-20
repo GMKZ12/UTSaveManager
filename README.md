@@ -10,7 +10,7 @@ C:\\XXX\\Undertale\\UNDERTALE.exe
 C:\\Users\\XXX\\AppData\\Local\\UNDERTALE
 ```
 
-# If you use 1.1 or later,you don't  need to edit the config.configIf you use 1.1 or later,you don't  need to edit the config.config
+# If you use 1.1 or later,you don't  need to edit the config.config
 I have changed the config file.
 Now using json!!
 You just need to follow the first-time-opening guide when you open the program at first.
